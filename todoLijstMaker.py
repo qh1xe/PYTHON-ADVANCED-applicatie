@@ -6,6 +6,7 @@ Bronnen:
 StackOverflow, 
 Chatgpt(om te vragen hoe ik bepaalde dingen juist kan implementeren in mijn project, daarbij heb ik m.b.v de uitleg van chatgpt het zelf toegepast in mijn project.)
 Google
+Youtube
 
 ^ ik durf wel niet te zeggen bij welke delen in mijn code ik deze bronnen heb gebruikt dus ik vermeld het gewoon zo.
 """
@@ -29,7 +30,7 @@ class Taak:
     def __str__(self):
         """ Format voor de taken als ze worden weergegeven"""
         status = "✓" if self.gedaan else "✗"
-        return f"[{status}] ({self.titel}) - {self.beschrijving} | Deadline:{self.deadline or 'Green'}"
+        return f"[{status}] ({self.titel}) - {self.beschrijving} | Deadline:{self.deadline}"
     
     
 class ToDoLijst:
@@ -39,7 +40,7 @@ class ToDoLijst:
         self.taken = self.laden()
 
     def laden(self):
-        """ laad de taken van de json bestand"""
+        """ zorgt ervoor dat alles laad van het json bestand"""
         if os.path.exists(self.bestand):
             with open(self.bestand, "r", encoding="utf-8") as f:
                 data = json.load(f)
