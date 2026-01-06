@@ -86,3 +86,64 @@ class ToDoLijst:
                 continue
             print(f"{i+1}. {taak}")
         print("~~~~~~~~~~~~\n")
+
+    def taak_verwijderen(self, index):
+        """ verwijderd de taken"""
+        try:
+            verwijderd = self.taken.pop(index)
+            self.opslaan()
+            print(f"Taak '{verwijderd.titel}' verwijderd")
+        except IndexError:
+            print("Ongeldig taaknummer.")
+
+def hoofdmenu():
+    print("\n=== TO-DO LIJST MAKER ===")
+    print("1. Taak toevoegen")
+    print("2. Taken tonen")
+    print("3. Taak markeren als gedaan")
+    print("4. Taak verwijderen")
+    print("5. Filter op categorie")
+    print("6. Filter open taken")
+    print("7. Afsluiten")
+    keuze = input("Kies een optie: ")
+    return keuze
+
+def main():
+    todo = ToDoLijst()
+    while True:
+        keuze = hoofdmenu()
+        if keuze == "1":
+           titel = input("Titel: ")
+           beschrijving = input("Beschrijving: ")
+           deadline = input("Deadline (optioneel): ")
+           categorie = input("Categorie (optioneel): ")
+           todo.taak_toevoegen(titel, beschrijving, deadline or None, categorie or "Algemeen")
+        elif keuze == "2":
+            todo.taken_tonen()
+        elif keuze == "3":
+            todo.taken_tonen()
+            try:
+                num = int(input("Taaknummer om als gedaan te markeren: ")) - 1
+                todo.taak_markeren(num, gedaan=True)
+            except ValueError:
+                print("Voer een geldig nummer in.")
+        elif keuze == "4":
+            todo.taken_tonen()
+            try:
+                num = int(input("Taaknummer om te verwijderen: ")) - 1
+                todo.taak_verwijderen(num)
+            except ValueError:
+                print("Voer een geldig nummer in.")
+        elif keuze == "5":
+            cat = input("Categorie: ")
+            todo.taken_tonen(categorie=cat)
+        elif keuze == "6":
+            todo.taken_tonen(alleen_open=True)
+        elif keuze == "7":
+            print("Tot ziens!")
+            break
+        else:
+            print("Ongeldige keuze, probeer het opnieuw.")
+
+if __name__ == "__main__":
+    main()
